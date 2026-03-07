@@ -417,5 +417,4 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-appsettings.json
-!appsettings.Development.json
+/Portfoliowebsite/appsettings.json
