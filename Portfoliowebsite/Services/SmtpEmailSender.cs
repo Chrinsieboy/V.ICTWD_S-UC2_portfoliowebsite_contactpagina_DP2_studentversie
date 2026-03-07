@@ -16,7 +16,7 @@ namespace Portfoliowebsite.Services
 
             var smtp = new SmtpClient(host, port)
             {
-                EnableSsl = false,
+                EnableSsl = true,
                 Credentials = new NetworkCredential(username, password)
             };
 
