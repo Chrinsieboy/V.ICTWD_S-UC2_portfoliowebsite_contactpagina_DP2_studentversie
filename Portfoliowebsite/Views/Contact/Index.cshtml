@@ -26,9 +26,10 @@
         <div id="subjectErr" class="error">@Html.ValidationMessage("Subject")</div>
     </div>
     <div>
-        <label for="Message" aria-hidden="true">Bericht</label> 
+        <label for="Message">Bericht</label> 
         <textarea id="Message" name="Message" rows="5" placeholder="Je bericht" tabindex="4" maxlength="1000" required></textarea>
         <div id="msgErr" class="error">@Html.ValidationMessage("Message")</div>
     </div>
+    <br />
     <button type="submit" class="send-button" tabindex="5">Versturen</button>
 </form>
