@@ -5,7 +5,8 @@ namespace Portfoliowebsite.Controllers
 {
     public class ContactController : Controller
     {
-        private readonly string regexCheck = @"((\%3C)|<)((\%2F)|\/)*[a-z0-9\%]+((\%3E)|>)|((\%3C)|<)((\%2F)|\/)*[a-z0-9\%]+((\%3E)|>).*((\%3C)|<)\/\1((\%3E)|>)|(javascript:|vbscript:|data:text\/html|data:text\/javascript)";
+        private readonly string xssRegexCheck = @"((\%3C)|<)((\%2F)|\/)*[a-z0-9\%]+((\%3E)|>)|((\%3C)|<)((\%2F)|\/)*[a-z0-9\%]+((\%3E)|>).*((\%3C)|<)\/\1((\%3E)|>)|(javascript:|vbscript:|data:text\/html|data:text\/javascript)";
+        private readonly string emailRegexCheck = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
         private readonly IEmailSender _email;
         public ContactController(IEmailSender email) => _email = email;
 
@@ -28,9 +29,9 @@ namespace Portfoliowebsite.Controllers
             }
 
             // Email format validation with regex 
-            if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"/^(?!\.)(?!.*\.\.)([a-z0-9_'+\-\.]*)[a-z0-9_'+\-]@([a-z0-9][a-z0-9\-]*\.)+[a-z]{2,}$/i", System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+            if (!System.Text.RegularExpressions.Regex.IsMatch(Email, emailRegexCheck, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
             {
-                Console.WriteLine("Email adress is invalid!");
+                Console.WriteLine("Emailadress is invalid!");
                 return View();
             }
 
@@ -46,10 +47,10 @@ namespace Portfoliowebsite.Controllers
             }
 
             // Check if one of the fields contains potential XSS attack vectors
-            if (System.Text.RegularExpressions.Regex.IsMatch(Name, regexCheck, System.Text.RegularExpressions.RegexOptions.IgnoreCase) ||
-                System.Text.RegularExpressions.Regex.IsMatch(Email, regexCheck, System.Text.RegularExpressions.RegexOptions.IgnoreCase) ||
-                System.Text.RegularExpressions.Regex.IsMatch(Subject, regexCheck, System.Text.RegularExpressions.RegexOptions.IgnoreCase) ||
-                System.Text.RegularExpressions.Regex.IsMatch(Message, regexCheck, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+            if (System.Text.RegularExpressions.Regex.IsMatch(Name, xssRegexCheck, System.Text.RegularExpressions.RegexOptions.IgnoreCase) ||
+                System.Text.RegularExpressions.Regex.IsMatch(Email, xssRegexCheck, System.Text.RegularExpressions.RegexOptions.IgnoreCase) ||
+                System.Text.RegularExpressions.Regex.IsMatch(Subject, xssRegexCheck, System.Text.RegularExpressions.RegexOptions.IgnoreCase) ||
+                System.Text.RegularExpressions.Regex.IsMatch(Message, xssRegexCheck, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
             {
                 Console.WriteLine("Input contains potential XSS attack vectors!");
                 return View();

@@ -13,22 +13,22 @@
     <div>
         <label for="Name">Naam</label>
         <input type="text" id="Name" name="Name" placeholder="Naam" tabindex="1" maxlength="40" required />
-        <div id="nameErr" class="error"></div>
+        <div id="nameErr" class="error">@Html.ValidationMessage("Name")</div>
     </div>
     <div>
         <label for="Email">E-mail</label>
         <input type="email" id="Email" name="Email" placeholder="naam@domein.nl" tabindex="2" maxlength="100" required />
-        <div id="emailErr" class="error"></div>
+        <div id="emailErr" class="error">@Html.ValidationMessage("Email")</div>
     </div>
     <div>
         <label for="Subject">Onderwerp</label>
         <input type="text" id="Subject" name="Subject" placeholder="Onderwerp" tabindex="3" maxlength="100" required />
-        <div id="subjectErr" class="error"></div>
+        <div id="subjectErr" class="error">@Html.ValidationMessage("Subject")</div>
     </div>
     <div>
         <label for="Message" aria-hidden="true">Bericht</label> 
         <textarea id="Message" name="Message" rows="5" placeholder="Je bericht" tabindex="4" maxlength="1000" required></textarea>
-        <div id="msgErr" class="error"></div>
+        <div id="msgErr" class="error">@Html.ValidationMessage("Message")</div>
     </div>
     <button type="submit" class="send-button" tabindex="5">Versturen</button>
 </form>
